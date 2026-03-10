@@ -40,6 +40,9 @@ armazenamento
 
 Diagrama de gerenciamento de recursos
 
+ ![resumo-500-linhas-sistemas-operacionais.md](imagens/2.png)
+
+
 O sistema operacional decide:
 
 quem usa cada recurso
