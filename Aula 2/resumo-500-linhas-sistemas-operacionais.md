@@ -15,7 +15,7 @@ O sistema operacional cria abstrações simples, como arquivos, processos e mem�
 
 Diagrama conceitual
 
- ![resumo-500-linhas-sistemas-operacionais.md](1.png)
+ ![resumo-500-linhas-sistemas-operacionais.md](imagens/1.png)
 
 
 Nesse modelo:
