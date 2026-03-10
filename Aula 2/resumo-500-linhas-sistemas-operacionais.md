@@ -55,6 +55,9 @@ Esse processo é chamado escalonamento.
 
 Computadores podem ser representados em camadas de abstração.
 
+ ![resumo-500-linhas-sistemas-operacionais.md](imagens/mermaid-diagram.png)
+
+
 Cada camada simplifica a camada abaixo.
 
 🔐 Modo Usuário vs Modo Kernel
