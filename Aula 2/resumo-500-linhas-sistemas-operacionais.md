@@ -96,15 +96,19 @@ Cada módulo possui uma responsabilidade específica.
 
 A evolução dos sistemas operacionais acompanha a evolução do hardware.
 
-Geração	Período	Tecnologia	Características	Sistemas
-Primeira	1945–1955	Válvulas	Programação manual	Sem sistema operacional
-Segunda	1955–1965	Transistores	Sistemas em lote	Monitores batch
-Terceira	1965–1980	Circuitos integrados	Multiprogramação	MULTICS
-Quarta	1980–presente	Microprocessadores	PCs e interfaces gráficas	Windows, Unix
-Quinta	1990–presente	Dispositivos móveis e redes	Sistemas distribuídos	Linux, Android
+| Geração  | Período       | Tecnologia                  | Características           | Sistemas                |
+| -------- | ------------- | --------------------------- | ------------------------- | ----------------------- |
+| Primeira | 1945–1955     | Válvulas                    | Programação manual        | Sem sistema operacional |
+| Segunda  | 1955–1965     | Transistores                | Sistemas em lote          | Monitores batch         |
+| Terceira | 1965–1980     | Circuitos integrados        | Multiprogramação          | MULTICS                 |
+| Quarta   | 1980–presente | Microprocessadores          | PCs e interfaces gráficas | Windows, Unix           |
+| Quinta   | 1990–presente | Dispositivos móveis e redes | Sistemas distribuídos     | Linux, Android          |
+
+
 🖥️ Evolução Histórica Simplificada
 
  ![resumo-500-linhas-sistemas-operacionais.md](imagens/4.png)
+
 
 🎯 Ideia central
 
