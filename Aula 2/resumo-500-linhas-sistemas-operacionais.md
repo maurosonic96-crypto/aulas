@@ -70,6 +70,9 @@ Modo kernel
 
 Diagrama
 
+ ![resumo-500-linhas-sistemas-operacionais.md](imagens/mermaid-diagram1.png)
+
+
 Fluxo:
 
 Programa solicita serviço
@@ -84,6 +87,9 @@ O hardware realiza a ação
 
 Um sistema operacional pode possuir vários componentes.
 
+ ![resumo-500-linhas-sistemas-operacionais.md](imagens/3.png)
+
+
 Cada módulo possui uma responsabilidade específica.
 
 📜 Gerações de Computadores
@@ -97,6 +103,9 @@ Terceira	1965–1980	Circuitos integrados	Multiprogramação	MULTICS
 Quarta	1980–presente	Microprocessadores	PCs e interfaces gráficas	Windows, Unix
 Quinta	1990–presente	Dispositivos móveis e redes	Sistemas distribuídos	Linux, Android
 🖥️ Evolução Histórica Simplificada
+
+ ![resumo-500-linhas-sistemas-operacionais.md](imagens/4.png)
+
 🎯 Ideia central
 
 Os sistemas operacionais resolvem três grandes problemas da computação:
