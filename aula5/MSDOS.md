@@ -11,8 +11,16 @@ Este documento foi criado para fins educacionais, permitindo explorar:
 
 O objetivo é criar um **ambiente funcional de DOS dentro de uma máquina virtual moderna**.
 
+![VirtualBox](https://img.shields.io/badge/VirtualBox-Virtualization-blue)
+![MS-DOS](https://img.shields.io/badge/MS--DOS-6.22-green)
+![x86](https://img.shields.io/badge/Architecture-x86-lightgrey)
+![Retro Computing](https://img.shields.io/badge/Retro-Computing-orange)
+![Status](https://img.shields.io/badge/Project-Study%20Lab-yellow)
+![License](https://img.shields.io/badge/License-Educational-lightblue)
+
 ---
 
+---
 # Sumário
 
 1. Visão geral
