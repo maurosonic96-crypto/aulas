@@ -427,6 +427,21 @@ Esse ambiente permite estudar:
 - programação de baixo nível  
 - sistemas operacionais clássicos  
 
-Tudo sem precisar modificar o sistema principal do computador.
+Tudo sem precisar modificar o sistema principal do computador.Boa Jogatina.
+
+### Doom
+![Doom Gameplay](images/doom.gif)
+
+### Duke Nukem
+![Duke Nukem Gameplay](images/dukenukem.gif)
+
+### Heretic
+![Heretic Gameplay](images/heretic.gif)
+
+### Hocus Pocus
+![Hocus Pocus Gameplay](images/hocuspocus.gif)
+
+### DOS Racing Games
+![DOS Racing](images/dos-racing.gif)
 
 ---
