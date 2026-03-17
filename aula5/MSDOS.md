@@ -433,8 +433,6 @@ Esse ambiente permite estudar:
 Tudo sem precisar modificar o sistema principal do computador.Boa Jogatina.
 ---
 ![MSDOS.md](gifs/duke-nukem-gaming.gif)
-![MSDOS.md](gifs/duke-nukem-gaming.gif)
-![MSDOS.md](gifs/videoframe_1184.png)
 ![MSDOS.md](gifs/01.gif)
 ![MSDOS.md](gifs/dos-retro.gif)
 ![MSDOS.md](gifs/Qb0ImN.gif)
