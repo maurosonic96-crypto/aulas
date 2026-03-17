@@ -23,6 +23,9 @@ O objetivo é criar um **ambiente funcional de DOS dentro de uma máquina virtua
 ---
 # Sumário
 
+![MSDOS.md](gifs/cmd-command.gif)
+
+
 1. Visão geral
 2. Requisitos
 3. Download do MS-DOS
@@ -429,6 +432,9 @@ Esse ambiente permite estudar:
 
 Tudo sem precisar modificar o sistema principal do computador.Boa Jogatina.
 
-
-
+![MSDOS.md](gifs/duke-nukem-gaming.gif)
+![MSDOS.md](gifs/videoframe_1184.pngf)
+![MSDOS.md](gifs/01.gif)
+![MSDOS.md](gifs/dos-retro.gif)
+![MSDOS.md](gifs/Qb0ImN.gif)
 ---
