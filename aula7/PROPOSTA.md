@@ -6,82 +6,105 @@
 
 ## 1. Introdução
 
-A empresa DevStore apresenta limitações relacionadas à escalabilidade, organização e segurança de sua infraestrutura de tecnologia da informação, decorrentes da ausência de padronização e de um fluxo estruturado de desenvolvimento.
+A empresa DevStore apresenta limitações relacionadas à escalabilidade, organização e segurança de sua infraestrutura de tecnologia da informação. Esses problemas decorrem principalmente da ausência de padronização dos ambientes e da inexistência de um fluxo estruturado de desenvolvimento e entrega de software.
 
-Este documento propõe uma arquitetura baseada em:
+Este documento propõe uma arquitetura moderna baseada em:
 
-* Pipeline de desenvolvimento (CI/CD)
+* Pipeline de desenvolvimento contínuo (CI/CD)
 * Ambientes isolados
 * Containerização
 * Computação em nuvem
 * Segurança e monitoramento
 
-Além disso, este relatório destaca o papel fundamental dos sistemas operacionais na implementação e funcionamento dessa arquitetura.
+Além disso, o relatório evidencia o papel central dos sistemas operacionais como elemento fundamental para viabilizar essa arquitetura, conectando conceitos teóricos a aplicações práticas.
 
 ---
 
 ## 2. Problemas Identificados
 
-| Problema              | Impacto                        |
-| --------------------- | ------------------------------ |
-| Falta de padronização | Inconsistência entre ambientes |
-| Ausência de testes    | Falhas em produção             |
-| Infraestrutura local  | Baixa escalabilidade           |
-| Falta de isolamento   | Conflitos entre sistemas       |
-| Ausência de controle  | Dificuldade de manutenção      |
+| Problema              | Impacto técnico                        |
+| --------------------- | -------------------------------------- |
+| Falta de padronização | Divergência entre ambientes (dev/prod) |
+| Ausência de testes    | Aumento de falhas em produção          |
+| Infraestrutura local  | Baixa escalabilidade                   |
+| Falta de isolamento   | Conflitos entre aplicações             |
+| Ausência de controle  | Dificuldade de manutenção e evolução   |
 
 ---
 
 ## 3. Papel dos Sistemas Operacionais na Solução
 
-Os sistemas operacionais desempenham papel central na arquitetura proposta, atuando como camada responsável pelo gerenciamento de recursos, isolamento de processos e suporte à execução das aplicações.
+Os sistemas operacionais atuam como a camada responsável pela abstração de hardware, gerenciamento de recursos e controle da execução de processos, sendo essenciais para garantir eficiência, isolamento e previsibilidade no ambiente proposto.
+
+---
 
 ### 3.1 Gerenciamento de Recursos
 
-O sistema operacional é responsável por controlar:
+O sistema operacional controla:
 
-* Uso de CPU
+* Escalonamento de CPU (process scheduling)
 * Alocação de memória
 * Gerenciamento de arquivos
-* Controle de dispositivos de entrada e saída
+* Controle de dispositivos de entrada/saída
 
-Na proposta apresentada, o sistema operacional garante que múltiplos containers ou máquinas virtuais utilizem os recursos de forma eficiente, evitando desperdícios e conflitos.
+Na arquitetura proposta, essas funções são fundamentais para permitir a execução simultânea de múltiplos containers e serviços durante o pipeline CI/CD.
+
+Por exemplo:
+
+* Durante o processo de build e testes automatizados, múltiplos processos concorrem por CPU e memória
+* O sistema operacional garante concorrência controlada, evitando starvation e garantindo desempenho previsível
 
 ---
 
 ### 3.2 Isolamento de Processos
 
-Um dos principais conceitos de sistemas operacionais aplicados é o isolamento.
+O isolamento é um dos pilares da solução proposta.
 
-* Em ambientes tradicionais: processos compartilham o mesmo sistema
-* Em ambientes modernos: o isolamento é reforçado por containers e máquinas virtuais
+Em sistemas tradicionais:
 
-Containers utilizam mecanismos do sistema operacional, como namespaces e controle de grupos de recursos, para isolar aplicações mesmo compartilhando o mesmo kernel ([Netdata][1])
+* Processos compartilham o mesmo ambiente com menor controle
 
-Já máquinas virtuais utilizam um hipervisor e executam sistemas operacionais independentes, garantindo isolamento completo entre ambientes ([TechTarget][2])
+Na arquitetura moderna:
+
+* O isolamento é reforçado por mecanismos do sistema operacional
+
+Nos containers, o isolamento é obtido por:
+
+* **Namespaces** → isolam visão de recursos (processos, rede, sistema de arquivos)
+* **Control Groups (cgroups)** → limitam uso de CPU, memória e I/O
+
+Isso permite que múltiplas aplicações executem de forma independente, mesmo compartilhando o mesmo kernel.
+
+Já em máquinas virtuais:
+
+* Cada instância possui seu próprio sistema operacional
+* O isolamento ocorre em nível de hardware virtualizado via hipervisor
 
 ---
 
 ### 3.3 Virtualização
 
-A virtualização é uma extensão do conceito de abstração do sistema operacional.
+A virtualização é uma extensão direta do conceito de abstração do sistema operacional.
 
 #### Tipos utilizados:
 
-* Virtualização completa (VMs)
-* Virtualização leve (containers)
+**1. Máquinas Virtuais (Virtualização completa)**
 
-Nas máquinas virtuais:
+* Virtualizam o hardware
+* Executam sistemas operacionais independentes
+* Maior isolamento
+* Maior consumo de recursos
 
-* cada instância possui seu próprio sistema operacional
-* maior isolamento
-* maior consumo de recursos
+**2. Containers (Virtualização leve)**
 
-Nos containers:
+* Virtualizam o sistema operacional
+* Compartilham o kernel do host
+* Menor overhead
+* Maior eficiência e escalabilidade
 
-* compartilham o kernel do sistema operacional hospedeiro
-* são mais leves e rápidos
-* permitem maior escalabilidade ([TechTarget][2])
+Diferença fundamental:
+
+> Máquinas virtuais abstraem o hardware; containers abstraem o sistema operacional.
 
 ---
 
@@ -89,37 +112,54 @@ Nos containers:
 
 Na arquitetura proposta:
 
-* existe um sistema operacional base (host)
-* sobre ele roda o Docker
-* os containers utilizam esse mesmo sistema operacional
+* Existe um sistema operacional host
+* O Docker atua como intermediário
+* Os containers utilizam o mesmo kernel
 
-Isso significa que o sistema operacional:
+Estrutura conceitual:
 
-* atua como base comum
-* fornece chamadas de sistema (syscalls)
-* gerencia processos isolados
+```
+Sistema Operacional (Host)
+ └── Kernel
+      ├── Namespaces
+      ├── cgroups
+      └── Docker Engine
+           ├── Container A
+           └── Container B
+```
+
+Nesse modelo, o sistema operacional:
+
+* Fornece chamadas de sistema (syscalls)
+* Gerencia processos isolados
+* Controla uso de recursos
 
 ---
 
 ### 3.5 Sistema Operacional na Nuvem
 
-Na computação em nuvem, o sistema operacional continua sendo essencial, porém abstraído:
+Na computação em nuvem, o sistema operacional permanece essencial, porém parcialmente abstraído.
 
-* servidores físicos executam um sistema operacional host
-* máquinas virtuais possuem seus próprios sistemas operacionais
-* containers compartilham o sistema operacional do host
+Camadas:
 
-Essa estrutura permite:
+* Hardware físico
+* Sistema operacional host
+* Hipervisor (quando aplicável)
+* Máquinas virtuais ou containers
 
-* elasticidade
-* distribuição de carga
-* alta disponibilidade
+Essa arquitetura permite:
+
+* Elasticidade (escala sob demanda)
+* Balanceamento de carga
+* Alta disponibilidade
 
 ---
 
 ## 4. Arquitetura Proposta
 
-### 4.1 Fluxo de Desenvolvimento
+---
+
+### 4.1 Fluxo de Desenvolvimento (CI/CD)
 
 ```mermaid
 flowchart LR
@@ -129,19 +169,25 @@ flowchart LR
     HOMOLOG --> PROD[Produção]
 ```
 
+Relação com o sistema operacional:
+
+* Cada etapa executa como processos independentes
+* O SO gerencia concorrência, memória e I/O
+* Garante execução previsível e isolada
+
 ---
 
 ### 4.2 Arquitetura de Execução
 
 ```mermaid
 flowchart TB
-    Host[Sistema Operacional Host]
+    Kernel[Kernel do Sistema Operacional]
     Docker[Docker Engine]
 
     C1[Container Aplicação]
     C2[Container Aplicação]
 
-    Host --> Docker
+    Kernel --> Docker
     Docker --> C1
     Docker --> C2
 ```
@@ -169,51 +215,103 @@ flowchart TB
 
 ## 5. Comparação Técnica
 
-| Critério       | Nuvem + Containers | Local      |
-| -------------- | ------------------ | ---------- |
-| Uso do SO      | Compartilhado      | Individual |
-| Eficiência     | Alta               | Média      |
-| Isolamento     | Controlado         | Limitado   |
-| Escalabilidade | Alta               | Baixa      |
+| Critério       | Nuvem + Containers      | Infraestrutura Local |
+| -------------- | ----------------------- | -------------------- |
+| Uso do SO      | Compartilhado (kernel)  | Isolado por máquina  |
+| Eficiência     | Alta                    | Média                |
+| Isolamento     | Controlado (namespaces) | Limitado             |
+| Escalabilidade | Alta                    | Baixa                |
+| Overhead       | Baixo                   | Alto                 |
 
 ---
 
 ## 6. Comparação Financeira
 
+Análise baseada em um cenário realista considerando serviços em nuvem e infraestrutura local ao longo de 3 anos.
+
+### Fontes de referência de preços:
+
+* Amazon Web Services (estimativas de EC2, RDS e S3 – região América do Sul)
+* Google Cloud Platform (valores comparativos de mercado)
+* Mercado Livre e Kabum! (preços de servidores e hardware)
+* Tarifas médias de energia elétrica no Brasil (ANEEL)
+* Planos de internet empresarial (provedores nacionais)
+
+---
+
+### Custos estimados
+
+**Nuvem:**
+
+* Instâncias (compute): R$ 300/mês
+* Banco de dados gerenciado: R$ 250/mês
+* Armazenamento: R$ 100/mês
+* Transferência de dados: R$ 100/mês
+
+**Total mensal:** R$ 750
+**Total em 3 anos:** R$ 27.000
+
+---
+
+**Infraestrutura Local:**
+
+* Servidor inicial: R$ 12.000
+* Upgrade/manutenção: R$ 3.000
+
+**Custos mensais:**
+
+* Energia elétrica: R$ 250
+* Internet empresarial: R$ 200
+* Manutenção: R$ 150
+
+**Total mensal:** R$ 600
+**Total em 3 anos (operacional):** R$ 21.600
+
+**Total geral (3 anos): R$ 36.600**
+
+---
+
+### Comparação
+
 ```mermaid
 pie
-    title Custos em 3 anos
-    "Nuvem" : 30
-    "Local" : 70
+    title Custos em 3 anos (em reais)
+    "Nuvem (R$ 27.000)" : 27000
+    "Infraestrutura Local (R$ 36.600)" : 36600
 ```
+
+---
+
+### Análise
+
+Apesar do custo mensal da nuvem ser mais elevado, a infraestrutura local apresenta maior custo total devido ao investimento inicial e custos operacionais contínuos.
+
+Além disso, a computação em nuvem oferece vantagens estratégicas como escalabilidade, elasticidade e alta disponibilidade, convertendo investimentos de capital (CAPEX) em despesas operacionais (OPEX).
 
 ---
 
 ## 7. Análise Integrada
 
-A arquitetura proposta demonstra que o sistema operacional não é apenas um componente de suporte, mas sim o núcleo responsável por:
+A arquitetura proposta evidencia que o sistema operacional é o núcleo da infraestrutura moderna, sendo responsável por:
 
-* garantir isolamento entre aplicações
-* gerenciar recursos computacionais
-* possibilitar virtualização e containerização
-* sustentar a execução em nuvem
-
-A utilização de containers representa uma evolução direta dos conceitos clássicos de sistemas operacionais, permitindo maior eficiência e escalabilidade sem a necessidade de múltiplos sistemas operacionais completos.
+* Gerenciamento eficiente de recursos
+* Execução concorrente de processos
+* Isolamento entre aplicações
+* Suporte à virtualização e containerização
 
 ---
 
 ## 8. Conclusão
 
-A solução proposta moderniza a infraestrutura da DevStore ao integrar conceitos fundamentais de sistemas operacionais com tecnologias contemporâneas.
+A proposta apresentada moderniza a infraestrutura da DevStore ao integrar práticas contemporâneas com fundamentos sólidos de sistemas operacionais.
 
-Os sistemas operacionais atuam como elemento central da arquitetura, possibilitando:
+O sistema operacional deixa de ser apenas uma camada de suporte e passa a ser o elemento central da arquitetura, possibilitando:
 
-* controle eficiente de recursos
-* isolamento seguro de aplicações
-* execução consistente em múltiplos ambientes
-* suporte à escalabilidade em nuvem
+* Execução eficiente e concorrente de aplicações
+* Isolamento seguro
+* Padronização de ambientes
+* Escalabilidade em nuvem
 
-Dessa forma, a proposta não apenas resolve os problemas identificados, mas também demonstra a aplicação prática dos conceitos teóricos de sistemas operacionais em um cenário real.
+Dessa forma, a solução resolve os problemas identificados e demonstra a aplicação prática de conceitos fundamentais de sistemas operacionais em um cenário real de engenharia de software.
 
 ---
-
